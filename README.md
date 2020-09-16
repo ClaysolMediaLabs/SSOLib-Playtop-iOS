@@ -43,6 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 let aes = try ClaysolSSO(keyString: key128)
                 if let userInfo = parameters["data"] {
                     let decryptedData = try aes.decrypt(userInfo)
+                    // In case if decryptedData come nil please check private key provided by Claysol.
                     let alertController = UIAlertController(title: nil, message: decryptedData, preferredStyle:UIAlertController.Style.alert)
 
                     alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default)
