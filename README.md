@@ -19,46 +19,43 @@ end
 ## Usage
 ```swift
  import SSOLibClaysol
-
-class ViewController: UIViewController {
+class AppDelegate: UIResponder, UIApplicationDelegate {
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        // Data to encrypt
-        let info = ["company_name": "Claysol",
-                    "company_address": "Bangalore"]
-        
-        // Create Json using data
-        guard let jsonStr = info.convertToJSONString else { return  }
-        // Define key. key length should be 32 & it should be base64 encoded
-        let key128 = "ODg0aHNVUzRYellVOFlKcW04WkZYd0dlR1JObUhNQlQ="
-        do {
-            // Initialize sso library
-            let aes = try ClaysolSSO(keyString: key128)
-            //encrypt data
-            if  let encryptedData = try aes.encrypt(jsonStr) {
-                //decrypt data
-                let decryptedData = try aes.decrypt(encryptedData)
-                print("decryptedData: \(decryptedData)")
-            }
-        } catch {
-            //Handle errors
-            print("Something went wrong: \(error)")
-        }
+    
+    var window: UIWindow?
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        // Override point for customization after application launch.
+        return true
     }
-}
-// MARK: - Json Helper
-extension Encodable {
-    var convertToJSONString: String? {
-        let jsonEncoder = JSONEncoder()
-        jsonEncoder.outputFormatting = .prettyPrinted
-        do {
-            let jsonData = try jsonEncoder.encode(self)
-            return String(data: jsonData, encoding: .utf8)
-        } catch {
-            return nil
+    
+    func application(_ app: UIApplication, open url: URL,
+                     options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        
+        if let scheme = url.scheme,
+            scheme.localizedCaseInsensitiveCompare("com.ssoSampleApp") == .orderedSame {
+            var parameters = [String: String]()
+            URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems?.forEach {
+                parameters[$0.name] = $0.value
+            }
+            //Key will be different for each cp.
+            let key128 = "MTIzRTREQzk4RjI1NTc1OEIxMDZGMkEyNTBBRDQ0QkI="
+            do {
+                let aes = try ClaysolSSO(keyString: key128)
+                if let userInfo = parameters["data"] {
+                    let decryptedData = try aes.decrypt(userInfo)
+                    let alertController = UIAlertController(title: nil, message: decryptedData, preferredStyle:UIAlertController.Style.alert)
+
+                    alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default)
+                     { action -> Void in
+                       // Put your code here
+                     })
+                    self.window?.rootViewController?.present(alertController, animated: true, completion: nil)
+                }
+            } catch {
+                print("Something went wrong: \(error)")
+            }
         }
+        return true
     }
 }
 
