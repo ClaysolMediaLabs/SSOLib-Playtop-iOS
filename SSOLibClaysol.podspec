@@ -57,7 +57,7 @@ Pod::Spec.new do |spec|
   spec.author             = { "Gajendra Rawat" => "gajendra.rawat@claysol.com" }
   # Or just: spec.author    = "Gajendra Rawat"
   # spec.authors            = { "Gajendra Rawat" => "gajendra.rawat@claysol.com" }
-  # spec.social_media_url   = "https://twitter.com/Gajendra Rawat"
+  # spec.social_media_url   = "gajendra.rawat@claysol.com"
 
   # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
@@ -81,7 +81,7 @@ Pod::Spec.new do |spec|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  spec.source       = { :git => "https://github.com/gajendraRawat/SSOLibClaysol.git", :tag => "#{spec.version}" }
+  spec.source       = { :git => "https://github.com/ClaysolMediaLabs/SSOLib-Playtop-iOS.git", :tag => "#{spec.version}" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
