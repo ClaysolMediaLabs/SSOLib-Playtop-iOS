@@ -1,0 +1,16 @@
+PODS:
+  - SSOLibClaysol (1.0.1)
+
+DEPENDENCIES:
+  - SSOLibClaysol
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - SSOLibClaysol
+
+SPEC CHECKSUMS:
+  SSOLibClaysol: 9349a142ef44a7ef176860227ba4a52fa1dba074
+
+PODFILE CHECKSUM: 91d315e7a33ac88124048fcd00c5c7aba3543c4c
+
+COCOAPODS: 1.7.5
