@@ -1,6 +1,0 @@
-framework module SSOLibClaysol {
-  umbrella header "SSOLibClaysol-umbrella.h"
-
-  export *
-  module * { export * }
-}
